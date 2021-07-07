@@ -18,10 +18,15 @@ const App: React.FC = () => {
 };
 
 if ('serviceWorker' in navigator) {
-  // Use the window load event to keep the page load performant
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/service-worker.js');
+  // Register a service worker hosted at the root of the
+  // site using the default scope.
+  navigator.serviceWorker.register('/weather-forecast/sw.js').then(function (registration) {
+    console.log('Service worker registration succeeded:', registration);
+  }, function (error) {
+    console.log('Service worker registration failed:', error);
   });
+} else {
+  console.log('Service workers are not supported.');
 }
 
 export default App;
